@@ -1,0 +1,46 @@
+﻿
+
+@inherits Umbraco.Web.Macros.PartialViewMacroPage
+@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.Test>
+@using ContentModels = Umbraco.Web.PublishedModels;
+@using UmbracoCvWebApp.ViewModels;
+
+
+@{
+ 
+var site = Model.Root();
+var selection = site.Children.Where(x => x.IsVisible());
+var experience = selection.FirstOrDefault(x => x.Name == "Experience");
+var experiences = experience.Value<IEnumerable<IPublishedElement>>("Experiences");
+  
+}
+<section id="blog" class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="section-title">
+                    <h1>Experience<i class="fa fa-pencil"></i></h1>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var item in experiences)
+            {
+        <div class="col-sm-8 col-sm-9 col-xs-8 col-xs-offset-2">
+            <!-- Single Blog -->
+            <div class="single-blog">
+
+                <div class="blog-info">
+                     
+                    <h2>@item.Value("experienceTitle")</h2>
+                    <span style="color:#808080">@item.Value("period")</span>
+                    @item.Value("description")
+                </div>
+            </div>
+
+        </div>
+            }
+                    </div>
+    </div>
+</section>
+

@@ -1,0 +1,73 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage
+@using Umbraco.Web;
+@{
+    var site = Model.Root();
+    var selection = site.Children.Where(x => x.IsVisible()); <!-- see below for explanation of IsVisible helper method -->
+
+}
+<!-- uncomment this line if you want the site name to appear in the top navigation -->
+<div class="nav-area">
+    <nav class="mainmenu">
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav menu">
+                <li class="navigationitems"><a href="#personal-area"><i class="fa fa-home"></i>@site.Name</a></li>
+
+
+                @foreach (var item in selection)
+                {
+
+                    <li class="navigationitems" id="#@item.Value("navigationItemUrl")"><a href="#@item.Value("navigationItemUrl")"><i class="@item.Value("navigationItemIcon")"></i>@item.Name</a></li>
+                    @*<li><a href="#portfolio"><i class="fa fa-briefcase"></i>Portfolio</a></li>
+                        <li><a href="#my-timeline"><i class="fa fa-history"></i>Timeline</a></li>
+                        <li><a href="#testimonials"><i class="fa fa-star"></i>Testimonials</a></li>
+                        <li><a href="#blog"><i class="fa fa-pencil"></i>Blog</a></li>
+                        <li><a href="#contact"><i class="fa fa-address-book"></i>Contact</a></li>*@
+
+                    @*<a class="nav-link @(item.IsAncestorOrSelf(Model) ? "nav-link--active" : null)" href="@item.Url">@item.Name</a>*@
+                }
+            </ul>
+            <ul class="social-icon">
+                <li><a href="#header"><i class="fa fa-plus"></i></a></li>
+            </ul>
+            <ul class="social">
+                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                <li><a href="#"><i class="fa fa-behance"></i></a></li>
+                <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
+<script type="text/javascript">
+
+    //let naviagation = Array.from(document.getElementsByClassName("navigationitems"));
+    //foreach.naviagation(b => {
+    //    let id = b.id
+    //    b.addEventListener('click', e => {
+    //        history.pushState(id, $id, id);
+    //    })
+    //})
+
+    let boxes = Array.from(document.getElementsByClassName('navigationitems'));
+
+    function selectBox(id) {
+        boxes.forEach(b => {
+            b.classList.toggle('selected', b.id === id);
+        });
+    }
+
+    boxes.forEach(b => {
+        let id = b.id;
+        b.addEventListener('click', e => {
+            history.pushState({ id }, `Selected: ${id}`, `./${id}`)
+            selectBox(id);
+        });
+    });
+
+    window.addEventListener('popstate', e => {
+        selectBox(e.state.id);
+    });
+
+    //history.replaceState({ id: null }, 'Default state', './');
+
+</script>

@@ -1,0 +1,37 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.Home>
+@using ContentModels = Umbraco.Web.PublishedModels;
+@{ 
+
+    var items = Model.Value<IEnumerable<IPublishedElement>>("socialIcons");
+
+}
+
+<footer id="footer">
+    <!-- Arrow -->
+    <div class="arrow">
+        <a href="#personal-area" class="btn"><i class="fa fa-angle-up"></i></a>
+    </div>
+    <!--/ End Arrow -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <!-- Copyright -->
+                <div class="copyright">
+                    <p>&copy; Copyright @Model.Value("copyRight") <a /></p>
+                </div>
+                <!--/ End Copyright -->
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+               <!-- Social -->
+                <ul class="social">
+                    @foreach (var item in items)
+                    {
+                <li><a href="@item.Value("socialClassUrl")"><i class="@item.Value("socialClassName")"></i></a></li> 
+                }
+               </ul> <!--/ End Social -->
+               
+            </div>
+        </div>
+    </div>
+</footer>
+<!--/ End Footer -->

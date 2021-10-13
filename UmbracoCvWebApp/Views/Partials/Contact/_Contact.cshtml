@@ -1,0 +1,39 @@
+﻿@model UmbracoCvWebApp.ViewModels.ContactViewModel
+<div class="col-md-6 col-sm-6 col-xs-12 wow fadeInLeft" data-wow-delay="0.4s">
+    <div class="test"></div>
+    <div class="form">
+        @using (Html.BeginUmbracoForm("SendMessage", "ContacForm", FormMethod.Post, new { id = "myform" }))
+        {
+@Html.AntiForgeryToken()
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @*<input type="text" name="name" asp-for="@Model.FullName" id="name" placeholder="Full Name" required="required">*@
+                            @Html.TextBoxFor(m => m.FullName, new { type = "name", required = "required", placeholder = "Full Name", name = "name" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @*<input type="email" asp-for="@Model.EmailAddress" name="email" id="email" placeholder="Your Email" required="required">*@
+                            @Html.TextBoxFor(m => m.EmailAddress, new { type = "email", required = "required", placeholder = "Your Email", name = "email" })
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            @*<textarea asp-for="@Model.Message" name="message" rows="6" id="message" placeholder="Type Your Message Here"></textarea>*@
+                            @Html.TextAreaFor(m => m.Message, new { required = "required", placeholder = "Type Your Message Here", rows = "6", id = "message", name = "message" })
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group button">
+                            <button id="mybtn" type="submit" class="button primary"><i class="fa fa-send"></i>Submit</button>
+
+
+
+                        </div>
+                    </div>
+
+                </div>}
+    </div>
+</div>
+

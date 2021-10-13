@@ -1,0 +1,12 @@
+﻿@model bool
+<script>
+    $(".mm").show().delay(2000).fadeOut();
+</script>
+@if (Model)
+{
+<span class="mm" style="color:forestgreen;font-size:18px;font-weight:700">Email sent</span>
+}
+else
+{
+<span  class="mm" style="color:red;font-size:18px">Enter Valid data</span>
+}
